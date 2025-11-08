@@ -48,7 +48,32 @@ npm run build
 ```
 
 ## Environment Variables
-The frontend connects to the backend at `http://localhost:5000` via proxy configuration in vite.config.js.
+The frontend connects to the backend via environment variables:
+- Development: Uses `/api` proxy configured in vite.config.js
+- Production: Uses `VITE_API_BASE_URL` from .env.production
+
+## Deployment to Netlify
+
+1. Install Netlify CLI:
+```bash
+npm install -g netlify-cli
+```
+
+2. Login to Netlify:
+```bash
+netlify login
+```
+
+3. Deploy:
+```bash
+netlify deploy
+```
+
+Follow the prompts to create and configure a new site.
+
+## Backend Deployment
+
+The backend needs to be deployed separately. Update the `VITE_API_BASE_URL` in `.env.production` to point to your deployed backend URL.
 
 ## Default Credentials
 Use the credentials created via backend seedAdmin.js for admin login.

@@ -120,6 +120,34 @@ npm run dev
 
 Frontend will run on http://localhost:3000
 
+## Deployment
+
+### Frontend Deployment (Netlify)
+
+1. Install Netlify CLI:
+```bash
+npm install -g netlify-cli
+```
+
+2. Login to Netlify:
+```bash
+netlify login
+```
+
+3. Deploy:
+```bash
+cd frontend
+netlify deploy
+```
+
+Follow the prompts to create and configure a new site.
+
+### Backend Deployment
+
+The backend needs to be deployed separately. See [backend/DEPLOYMENT.md](file:///c%3A/Users/gudet/OneDrive/Desktop/shams/backend/DEPLOYMENT.md) for detailed instructions.
+
+After deploying the backend, update the `VITE_API_BASE_URL` in `frontend/.env.production` to point to your deployed backend URL.
+
 ## API Endpoints
 
 ### Authentication
