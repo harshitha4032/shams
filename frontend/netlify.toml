@@ -3,6 +3,15 @@
   publish = "dist"
   base = "/"
 
-# Redirects for local development only
-# For production, you'll need to update the API base URL in your frontend code
-# to point to your deployed backend
+# Redirects for Single Page Applications
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# API proxy for local development
+[[redirects]]
+  from = "/api/*"
+  to = "https://backend-fo1g.onrender.com/api/:splat"
+  status = 200
+  force = true

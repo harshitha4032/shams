@@ -22,11 +22,16 @@ import adminHostelRoutes from './routes/adminHostelRoutes.js';
 dotenv.config();
 const app = express();
 const httpServer = createServer(app);
+
+// Updated CORS configuration to be more permissive for testing
+const corsOptions = {
+  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
 const io = new Server(httpServer, {
-  cors: {
-    origin: process.env.CLIENT_URL || '*',
-    credentials: true
-  }
+  cors: corsOptions
 });
 
 // Make io accessible to routes
@@ -34,12 +39,21 @@ app.set('io', io);
 
 await connectDB();
 
-app.use(cors({ origin: process.env.CLIENT_URL || '*', credentials: true }));
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan('dev'));
 app.use('/uploads', express.static('uploads'));
 
 app.get('/api/health', (req, res) => res.json({ ok: true }));
+
+// Add a test endpoint
+app.get('/api/test', (req, res) => {
+  res.json({ 
+    message: 'Backend is working correctly!',
+    timestamp: new Date().toISOString(),
+    clientUrl: process.env.CLIENT_URL
+  });
+});
 
 app.use('/api/public', publicRoutes);
 app.use('/api/auth', authRoutes);
